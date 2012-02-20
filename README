@@ -1,0 +1,11 @@
+This is a mostly-header library for GNU-C that provides generic data structures mostly implemented as macros.
+
+The macros handle side-effects in arguments, if a macro fails to handle side-effects correctly it's a bug and you should report it.
+
+Note that these macros attempt to do the right thing when it comes to handling errors, generally they will return VECTOR_ERROR (default: NULL) casted to the type the vector carries upon error, exceptions are noted in the documentation.
+
+So if the structure you're using a vector of type vector(int) then the error return will be (int) NULL, which might be a valid value for successful return depending on the input, therefore it is recommended that you define the VECTOR_ERROR macro to be some value that makes sense for your application.
+
+The idea of a comparator function is a function that takes two elements (e and f) and returns less than zero, zero or greater than zero if e is found to be less than f, equal to f and greater than f respectively. Note that the current setup allows comparator functions to be defined as macros.
+
+If you want to use the same structure in several different files it is important that you typedef the correct type instead of using the generic definition everywhere, since the generic definition is just an anonymous struct it's impossible for the compiler to know that the types are actually equal. So for instance if you're using a vector of type vector(char *) you would first define globally typedef vector(char *) stringvector; and extern stringvector global_vector;.
