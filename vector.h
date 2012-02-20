@@ -33,7 +33,7 @@
  *   - pop
  *   - set
  *   - size
- *   - trim (amortized)
+ *   - trim
  * - O(n)
  *   - contains
  *   - index_of
@@ -126,7 +126,7 @@
  * vector_contains
  * Returns whether vector contains element.
  *
- * @param  (vector(type) *) vector in question
+ * @param  (const vector(type) *) vector in question
  * @param  (type) element to check for existence
  * @param  (comparator-fn) comparator function
  * @return (int) non-zero if element was found in vector and zero otherwise
@@ -176,7 +176,7 @@
  * vector_index_of
  * Returns the index of the first occurance of element in vector.
  *
- * @param  (vector(type) *) vector in question
+ * @param  (const vector(type) *) vector in question
  * @param  (type) element to find index of
  * @param  (comparator-fn) comparator function
  * @return (int) index of element in vector or -1 otherwise
@@ -379,7 +379,7 @@
  * vector_resize
  * Resizes the underlying array of vector.
  * Note that resizes larger than vector_capacity
- * might result in the entire being copied.
+ * might result in the entire vector being copied.
  *
  * @param  (vector(type) *) the vector to resize
  * @param  (size_t) number of new elements in vector
