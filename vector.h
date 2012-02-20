@@ -382,7 +382,7 @@
  * might result in the entire vector being copied.
  *
  * @param  (vector(type) *) the vector to resize
- * @param  (size_t) number of new elements in vector
+ * @param  (size_t) number of elements the new vector may hold
  * @return (vector(type) *) the resized vector
  */
 #define vector_resize(v, s)                     \
@@ -390,15 +390,21 @@
     __typeof__(v) v__ = (v);                    \
     __typeof__(v__->base) b__;                  \
     size_t s__ = (s);                           \
-    ptrdiff_t o__ = v__->head - v__->base;      \
                                                 \
-    b__ = realloc(v__->base,                    \
-                  s__ * sizeof(*v__->base));    \
+    if (s__ != (v__->end - v__->base)) {        \
+      ptrdiff_t o__ = v__->head - v__->base;    \
                                                 \
-    if (b__ != NULL) {                          \
-      v__->base = b__;                          \
-      v__->head = b__ + o__;                    \
-      v__->end  = b__ + s__;                    \
+                                                \
+      b__ = realloc(v__->base,                  \
+                    s__ * sizeof(*v__->base));  \
+                                                \
+      if (b__ != NULL) {                        \
+        v__->base = b__;                        \
+        v__->head = b__ + o__;                  \
+        v__->end  = b__ + s__;                  \
+      }                                         \
+    } else {                                    \
+      b__ = v__->base;                          \
     }                                           \
                                                 \
     b__ == NULL ? NULL : v__;                   \
