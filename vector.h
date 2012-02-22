@@ -344,7 +344,7 @@
  *
  * @param  (vector(type) *) vector in question
  * @param  (int) index of element
- * @param  (type) the removed element
+ * @return  (type) the removed element
  */
 #define vector_remove(v, i)                       \
   ({                                              \
