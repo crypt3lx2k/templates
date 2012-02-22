@@ -391,9 +391,9 @@
     __typeof__(v__->base) b__;                  \
     size_t s__ = (s);                           \
                                                 \
-    if (s__ != (v__->end - v__->base)) {        \
+    if (s__ != (size_t)                         \
+        (v__->end - v__->base)) {               \
       ptrdiff_t o__ = v__->head - v__->base;    \
-                                                \
                                                 \
       b__ = realloc(v__->base,                  \
                     s__ * sizeof(*v__->base));  \
