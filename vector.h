@@ -128,11 +128,11 @@
  *
  * @param  (const vector(type) *) vector in question
  * @param  (type) element to check for existence
- * @param  (comparator-fn) comparator function
+ * @param  (int (*cmp)(type, type)) comparator function
  * @return (int) non-zero if element was found in vector and zero otherwise
  */
-#define vector_contains(v, e, eq)               \
-  (vector_index_of(v, e, eq) != -1)
+#define vector_contains(v, e, cmp)               \
+  (vector_index_of(v, e, cmp) != -1)
 
 /**
  * vector_get
@@ -178,10 +178,10 @@
  *
  * @param  (const vector(type) *) vector in question
  * @param  (type) element to find index of
- * @param  (comparator-fn) comparator function
+ * @param  (int (*cmp)(type, type)) comparator function
  * @return (int) index of element in vector or -1 otherwise
  */
-#define vector_index_of(v, e, eq)               \
+#define vector_index_of(v, e, cmp)              \
   ({                                            \
     __typeof__(v) v1__ = (v);                   \
     __typeof__(*v1__->base) e__ = (e);          \
@@ -189,7 +189,7 @@
     ptrdiff_t s__ = vector_size(v1__);          \
                                                 \
     for (i__ = 0; i__ < s__; i__++)             \
-      if (eq(e__, v1__->base[i__]) == 0)        \
+      if (cmp(e__, v1__->base[i__]) == 0)       \
         break;                                  \
                                                 \
     i__ == s__ ? -1 : i__;                      \
