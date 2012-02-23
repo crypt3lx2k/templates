@@ -196,6 +196,29 @@
   })
 
 /**
+ * vector_initialize
+ * Initializes an uninitialized vector.
+ *
+ * Note, calling this function on an already
+ * initialized vector will result in a memory
+ * leak, use vector_resize instead.
+ *
+ * @param  (vector(type) *) the uninitialized vector
+ * @param  (size_t) the number of elements the initialized vector may hold
+ * @return (vector(type) *) the initialized vector
+ */
+#define vector_initialize(v, s)			\
+  ({						\
+    __typeof__(v) v1__ = (v);			\
+						\
+    v1__->base = NULL;				\
+    v1__->head = NULL;				\
+    v1__->end  = NULL;				\
+						\
+    vector_resize(v1__, (s));			\
+  })
+
+/**
  * vector_insert
  * Inserts an element at a certain position
  * in vector without removing any elements.
