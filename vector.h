@@ -46,9 +46,9 @@
  */
 #define vector(type)                            \
   struct {                                      \
-    type * base;                                \
-    type * head;                                \
-    type * end;                                 \
+    type * base,                                \
+         * head,                                \
+         * end;                                 \
   }
 
 /* returns the new size based
@@ -207,15 +207,15 @@
  * @param  (size_t) the number of elements the initialized vector may hold
  * @return (vector(type) *) the initialized vector
  */
-#define vector_initialize(v, s)			\
-  ({						\
-    __typeof__(v) v1__ = (v);			\
-						\
-    v1__->base = NULL;				\
-    v1__->head = NULL;				\
-    v1__->end  = NULL;				\
-						\
-    vector_resize(v1__, (s));			\
+#define vector_initialize(v, s)                 \
+  ({                                            \
+    __typeof__(v) v1__ = (v);                   \
+                                                \
+    v1__->base = NULL;                          \
+    v1__->head = NULL;                          \
+    v1__->end  = NULL;                          \
+                                                \
+    vector_resize(v1__, (s));                   \
   })
 
 /**
